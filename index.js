@@ -13,13 +13,8 @@ import jwt from "jsonwebtoken";
 global.parsed = process.env;
 global.__filename = fileURLToPath(import.meta.url);
 global.__dirname = path.dirname(__filename);
-console.log(__dirname);
 global.jwt = jwt;
 global.secret_key = parsed.JWT_SECRET_KEY;
-const uploadDirectory =
-  process.env.NODE_ENV === "production"
-    ? "/tmp/uploads"
-    : path.join(__dirname, "uploads");
 const app = express();
 // Connect To DB
 await ConnectToDB(parsed.DB_URL);
@@ -40,7 +35,7 @@ timedCronJob();
 
 app.use("/api/v1/", router);
 
-app.use("/uploads", express.static(uploadDirectory));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.listen(parsed.PORT || 8000, parsed.INTERFACE_LISTEN, () => {
   console.log(`Server Listening on port ${parsed?.PORT || 8000}`);

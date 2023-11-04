@@ -8,14 +8,10 @@ const UploadAvatar = async (req, res, next) => {
       const avatar = req.files.avatar;
       const extension = avatar.mimetype.split("/").slice(-1).join("");
       const fileName = crypto.randomBytes(40).toString("hex");
-      const uploadPath =
-        process.env.NODE_ENV === "production"
-          ? `/tmp/uploads/${fileName}.${extension}`
-          : path.join(__dirname, `uploads/${fileName}.${extension}`);
-
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath, { recursive: true });
-      }
+      const uploadPath = path.join(
+        __dirname,
+        `uploads/${fileName}.${extension}`
+      );
       await avatar.mv(uploadPath, (err) => {
         console.log(err);
         if (err) throw [500, uploadPath];
