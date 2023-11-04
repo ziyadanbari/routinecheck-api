@@ -2,8 +2,8 @@ import * as fs from "fs";
 import handlebars from "handlebars";
 import { transporter } from "../helpers/EmailTransporter.helper.js";
 import path from "path";
-
-const { EMAIL } = parsed;
+import { config } from "dotenv";
+const { EMAIL } = config().parsed;
 
 function handleHtmlTemplate(htmlTemplate, data) {
   const templateSource = fs.readFileSync(
