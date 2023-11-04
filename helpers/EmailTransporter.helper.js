@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
-
-const { EMAIL, EMAIL_PASSWORD } = parsed;
+import { config } from "dotenv";
+const { EMAIL, EMAIL_PASSWORD } = config().parsed;
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
