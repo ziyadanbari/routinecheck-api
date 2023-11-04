@@ -13,8 +13,8 @@ const UploadAvatar = async (req, res, next) => {
           ? `/tmp/uploads/${fileName}.${extension}`
           : path.join(__dirname, `uploads/${fileName}.${extension}`);
 
-      if (!fs.existsSync(uploadDirectory)) {
-        fs.mkdirSync(uploadDirectory, { recursive: true });
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
       }
       await avatar.mv(uploadPath, (err) => {
         console.log(err);
