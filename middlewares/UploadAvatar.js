@@ -1,14 +1,11 @@
 import path from "path";
 import crypto from "crypto";
-import { config } from "dotenv";
 import { fileURLToPath } from "url";
 
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = path.dirname(__filename);
 const UploadAvatar = async (req, res, next) => {
-  const {
-    parsed: { DOMAIN },
-  } = config();
+  const { DOMAIN } = process.env;
   try {
     if (req.files && req.files.avatar) {
       const avatar = req.files.avatar;
