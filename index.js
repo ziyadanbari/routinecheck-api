@@ -9,8 +9,9 @@ import path from "path";
 import { dailyCronJob } from "./cronjob/dailyCronJob.js";
 import { timedCronJob } from "./cronjob/timedCronJob.js";
 import jwt from "jsonwebtoken";
+import { config } from "dotenv";
 // Local Variables
-global.parsed = process.env;
+global.parsed = config().parsed;
 global.__filename = fileURLToPath(import.meta.url);
 global.__dirname = path.dirname(__filename);
 global.jwt = jwt;
