@@ -16,7 +16,8 @@ const UploadAvatar = async (req, res, next) => {
         `../uploads/${fileName}.${extension}`
       );
       await avatar.mv(uploadPath, (err) => {
-        if (err) throw [500, "Cannot upload the image"];
+        console.log(err);
+        if (err) throw [500, err];
       });
       const URLpath = `${DOMAIN}uploads/${fileName}.${extension}`;
       req.body = {
