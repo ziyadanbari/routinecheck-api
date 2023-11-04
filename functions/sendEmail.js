@@ -7,7 +7,7 @@ const EMAIL = "routine4check@gmail.com";
 
 function handleHtmlTemplate(htmlTemplate, data) {
   const templateSource = fs.readFileSync(
-    path.resolve(`./src/views/${htmlTemplate}.html`),
+    path.resolve(`./views/${htmlTemplate}.html`),
     "utf-8"
   );
   const template = handlebars.compile(templateSource);
