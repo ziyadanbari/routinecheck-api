@@ -1,7 +1,4 @@
 import nodemailer from "nodemailer";
-import { config } from "dotenv";
-
-const parsed = config().parsed;
 const { EMAIL, EMAIL_PASSWORD } = parsed;
 
 let transporter = nodemailer.createTransport({
