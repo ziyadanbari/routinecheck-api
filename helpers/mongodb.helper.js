@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 async function ConnectToDB(dbUrl) {
+  console.log(dbUrl);
   try {
     await mongoose.connect(dbUrl, {
       useUnifiedTopology: true,
