@@ -3,7 +3,7 @@ import handlebars from "handlebars";
 import { transporter } from "../helpers/EmailTransporter.helper.js";
 import path from "path";
 
-const EMAIL = "routine4check@gmail.com";
+const { EMAIL } = parsed;
 
 function handleHtmlTemplate(htmlTemplate, data) {
   const templateSource = fs.readFileSync(
