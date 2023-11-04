@@ -11,10 +11,10 @@ const UploadAvatar = async (req, res, next) => {
       const avatar = req.files.avatar;
       const extension = avatar.mimetype.split("/").slice(-1).join("");
       const fileName = crypto.randomBytes(40).toString("hex");
-      const uploadPath = path.join(
-        __dirname,
-        `../uploads/${fileName}.${extension}`
-      );
+      const uploadPath =
+        process.env.NODE_ENV === "production"
+          ? path.join(__dirname, `../uploads/${fileName}.${extension}`)
+          : `/tmp/uploads/${fileName}.${extension}`;
       await avatar.mv(uploadPath, (err) => {
         console.log(err);
         if (err) throw [500, err];
