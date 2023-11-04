@@ -35,9 +35,6 @@ timedCronJob();
 
 app.use("/api/v1/", router);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.get("/config", (req, res) => {
-  return res.status(200).json({ env: { ...parsed } });
-});
 
 app.listen(parsed.PORT || 8000, parsed.INTERFACE_LISTEN, () => {
   console.log(`Server Listening on port ${parsed?.PORT || 8000}`);
