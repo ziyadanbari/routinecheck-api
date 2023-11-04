@@ -1,10 +1,8 @@
 import * as fs from "fs";
 import handlebars from "handlebars";
 import { transporter } from "../helpers/EmailTransporter.helper.js";
-import { config } from "dotenv";
 import path from "path";
 
-const parsed = config().parsed;
 const { EMAIL } = parsed;
 
 function handleHtmlTemplate(htmlTemplate, data) {
