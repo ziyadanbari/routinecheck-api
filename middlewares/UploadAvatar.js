@@ -1,6 +1,5 @@
 import path from "path";
 import crypto from "crypto";
-import fs from "fs";
 const UploadAvatar = async (req, res, next) => {
   const { DOMAIN } = process.env;
   try {
@@ -12,6 +11,7 @@ const UploadAvatar = async (req, res, next) => {
         __dirname,
         `uploads/${fileName}.${extension}`
       );
+      console.log(__dirname);
       await avatar.mv(uploadPath, (err) => {
         console.log(err);
         if (err) throw [500, uploadPath];
