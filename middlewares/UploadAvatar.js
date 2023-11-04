@@ -1,9 +1,6 @@
 import path from "path";
 import crypto from "crypto";
-import { fileURLToPath } from "url";
-
-var __filename = fileURLToPath(import.meta.url);
-var __dirname = path.dirname(__filename);
+import fs from "fs";
 const UploadAvatar = async (req, res, next) => {
   const { DOMAIN } = process.env;
   try {
@@ -15,6 +12,10 @@ const UploadAvatar = async (req, res, next) => {
         process.env.NODE_ENV === "production"
           ? `/tmp/uploads/${fileName}.${extension}`
           : path.join(__dirname, `uploads/${fileName}.${extension}`);
+
+      if (!fs.existsSync(uploadDirectory)) {
+        fs.mkdirSync(uploadDirectory, { recursive: true });
+      }
       await avatar.mv(uploadPath, (err) => {
         console.log(err);
         if (err) throw [500, uploadPath];
