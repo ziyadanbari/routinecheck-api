@@ -10,6 +10,7 @@ const sendMessage = async (phone, message) => {
       WhatsAppService.sendMessage,
       phone
     );
+    console.log(response.data);
   } catch (error) {
     console.log(error);
   }
