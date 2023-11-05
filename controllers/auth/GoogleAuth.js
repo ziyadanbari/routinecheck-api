@@ -62,7 +62,6 @@ async function login(user, token) {
 async function GoogleAuth(req, res) {
   try {
     const form = req.body;
-    console.log(form);
     const { username, email, avatar, token } = form;
     const { type } = req;
     if (!type) throw [500, "Internal server error"];
