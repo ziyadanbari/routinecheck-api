@@ -21,12 +21,7 @@ console.log(parsed);
 // Connect To DB
 await ConnectToDB(parsed.DB_URL);
 // MiddleWare
-app.use(
-  cors({
-    origin: parsed.CLIENT_DOMAIN,
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
 // Express Session
