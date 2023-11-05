@@ -19,8 +19,9 @@ const RequestTypeChecker = async (req, res, next) => {
     req.type = type;
     return next();
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: error });
+    const [status, message] =
+      error instanceof Array ? error : [500, "Internal server error"];
+    res.status(status).json({ message });
   }
 };
 export { RequestTypeChecker };

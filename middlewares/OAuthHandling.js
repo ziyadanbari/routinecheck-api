@@ -16,7 +16,9 @@ const OAuthHandling = async (req, res, next) => {
     else {
       return next();
     }
-  } catch ([status, message]) {
+  } catch (error) {
+    const [status, message] =
+      error instanceof Array ? error : [500, "Internal server error"];
     res.status(status).json({ message });
   }
 };

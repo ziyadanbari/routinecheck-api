@@ -9,8 +9,8 @@ async function checkUserNotExistence(username, email, avatar, token) {
     const findUser = await User.findOne(query).exec();
     if (findUser) throw [409, "The user already exists"];
     return saveUser(username, email, avatar, token);
-  } catch ([status, message]) {
-    throw [status, message];
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -26,9 +26,10 @@ async function saveUser(username, email, avatar, token) {
     await admin.auth().verifyIdToken(token);
     await newUser.save();
     return newUser._id;
-  } catch (err) {
-    if (err.code === "auth/argument-error") throw [401, "Invalid token"];
-    throw [...err];
+  } catch (error) {
+    if (!(error instanceof Array) && error.code === "auth/argument-error")
+      throw [401, "Invalid token"];
+    throw [500, "Internal server error"];
   }
 }
 
@@ -40,8 +41,8 @@ async function checkUserExistence(email, username, token) {
     const findUser = await User.findOne(query).exec();
     if (!findUser) throw [404, "User not found"];
     return login(findUser, token);
-  } catch ([status, message]) {
-    throw [status, message];
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -73,7 +74,6 @@ async function GoogleAuth(req, res) {
         token
       );
       if (Registration) {
-        console.log(1);
         const userId = Registration;
         const token = await jwt.sign({ userId }, secret_key);
         res.status(201).json({ message: "User Created", token });
@@ -85,10 +85,13 @@ async function GoogleAuth(req, res) {
         const token = await jwt.sign({ userId }, secret_key);
         res.send({ message: "Welcome !", token });
       }
+    } else {
+      throw [500, "Invalid type"];
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: error });
+    const [status, message] =
+      error instanceof Array ? error : [500, "Internal server error"];
+    res.status(status).json({ message });
   }
 }
 export { GoogleAuth };
