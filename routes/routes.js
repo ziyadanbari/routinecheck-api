@@ -39,6 +39,7 @@ import { SendEmailVerification } from "../controllers/auth/SendEmailVerification
 import { TONtrait } from "../controllers/notification/TONtrait.js";
 import { SendPasswordResetToken } from "../controllers/auth/SendPasswordResetToken.js";
 import { VerifyPasswordResetToken } from "../controllers/auth/VerifyPasswordResetToken.js";
+import { DeleteAccount } from "../controllers/auth/DeleteAccount.js";
 
 const route = Router();
 
@@ -92,5 +93,6 @@ route.get("/getme", [checkAuth], GetMe);
 route.get("/getdr", [checkAuth], getDR);
 route.get("/gettr", [checkAuth], getTR);
 route.get("/sendemailverification", [checkAuth], SendEmailVerification);
+route.get("/deletemyaccount", [checkAuth], DeleteAccount);
 
 export { route };

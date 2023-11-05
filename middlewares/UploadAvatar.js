@@ -2,11 +2,8 @@ import path from "path";
 import crypto from "crypto";
 const UploadAvatar = async (req, res, next) => {
   const { DOMAIN } = parsed;
-  console.log(__dirname);
-  console.log(req.files.avatar.data);
-  console.log(req.files.avatar.data.toString("base64"));
   try {
-    if (req.files && req.files.avatar) {
+    if (req.files && req.files?.avatar) {
       const avatar = req.files.avatar;
       const extension = avatar.mimetype.split("/").slice(-1).join("");
       const fileName = crypto.randomBytes(40).toString("hex");

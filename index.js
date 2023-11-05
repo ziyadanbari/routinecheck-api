@@ -17,7 +17,6 @@ global.__dirname = path.dirname(__filename);
 global.jwt = jwt;
 global.secret_key = parsed.JWT_SECRET_KEY;
 const app = express();
-console.log(parsed);
 // Connect To DB
 await ConnectToDB(parsed.DB_URL);
 // MiddleWare

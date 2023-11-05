@@ -120,31 +120,43 @@ const PasswordChangeFormHandling = async (req, res, next) => {
  */
 const TONTraitFormHandling = async (req, res, next) => {
   try {
-    const { option = "", active = null, notified = "" } = req.body;
-    if (!option || !validator.isBoolean(String(active))) {
-      throw [400, "Invalid input fields."];
-    } else if (option) {
-      if (option !== "email" && option !== "whatsapp") {
+    const { options } = req.body;
+
+    options.forEach(({ title, activated, notified }, i) => {
+      if (!title || !validator.isBoolean(String(activated))) {
+        throw [400, "Invalid input fields."];
+      }
+
+      if (title !== "email" && title !== "whatsapp") {
         throw [400, "Invalid option."];
-      } else if (
-        option === "email" &&
+      }
+
+      if (
+        title === "email" &&
         notified &&
         !validator.isEmail(String(notified))
       ) {
         throw [400, "Invalid email address."];
-      } else if (
-        option === "whatsapp" &&
+      }
+
+      if (
+        title === "whatsapp" &&
         notified &&
-        !validator.isMobilePhone(`${notified}`)
+        !validator.isMobilePhone(
+          notified.startsWith("+") ? `${notified}` : `+${notified}`
+        )
       ) {
         throw [400, "Invalid phone number."];
       }
-    }
-    req.body = {
-      ...req.body,
-      notified: notified.replaceAll("+", "") || undefined,
-      active: String(active),
-    };
+
+      if (title === "whatsapp") {
+        options[i] = {
+          ...options[i],
+          notified: notified ? `${notified.replace("+", "")}` : undefined,
+          activated: String(activated),
+        };
+      }
+    });
 
     return next();
   } catch (error) {
