@@ -87,8 +87,9 @@ async function GoogleAuth(req, res) {
         res.send({ message: "Welcome !", token });
       }
     }
-  } catch ([status, message]) {
-    res.status(status).json({ message });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error });
   }
 }
 export { GoogleAuth };

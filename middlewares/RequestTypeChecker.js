@@ -16,10 +16,10 @@ const RequestTypeChecker = async (req, res, next) => {
     if (!token) throw [400, "Invalid Token"];
     const type = extractType(token);
     if (!type) throw [400, "Invalid Token"];
-    req.type = type;
     return next();
-  } catch ([status, message]) {
-    res.status(status).json({ message });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error });
   }
 };
 export { RequestTypeChecker };
