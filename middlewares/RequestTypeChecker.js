@@ -4,7 +4,7 @@ function extractType(token) {
   if (!validator.isBase64(token)) {
     return false;
   }
-  const decodedType = atob(token);
+  const decodedType = Buffer.from(token, "base64").toString("ascii");
   if (!validator.isAlphanumeric(decodedType)) return false;
   const type = decodedType.slice(-8);
   return type;
